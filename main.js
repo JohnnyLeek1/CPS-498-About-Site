@@ -5,10 +5,20 @@ camera.position.z = 1;
 
 const scene = new THREE.Scene();
 
-const geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+const geometry = new THREE.BoxGeometry( 0.5, 0.5, 0.5 );
 const material = new THREE.MeshNormalMaterial();
 
-const mesh = new THREE.Mesh( geometry, material );
+const colinTexture = new THREE.TextureLoader().load('img/colin.jpg');
+const curtisTexture = new THREE.TextureLoader().load('img/curtis.jpg');
+const jeremyTexture = new THREE.TextureLoader().load('img/jeremy.png');
+const johnnyTexture = new THREE.TextureLoader().load('img/johnny.jpg');
+const kayleeTexture = new THREE.TextureLoader().load('img/kaylee.png');
+const owenTexture = new THREE.TextureLoader().load('img/owen.png');
+
+const materials = [ new THREE.MeshBasicMaterial( { map: colinTexture } ), new THREE.MeshBasicMaterial( { map: curtisTexture } ), new THREE.MeshBasicMaterial( { map: jeremyTexture } ), 
+    new THREE.MeshBasicMaterial( { map: johnnyTexture } ), new THREE.MeshBasicMaterial( { map: kayleeTexture } ), new THREE.MeshBasicMaterial( { map: owenTexture } ), ]
+
+const mesh = new THREE.Mesh( geometry, materials );
 scene.add( mesh );
 
 const renderer = new THREE.WebGLRenderer( { antialias: true } );
