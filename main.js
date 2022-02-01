@@ -94,6 +94,9 @@ const animateDOMElement = (element, animation) => {
         case 'fromTop':
             element.classList.add('fromTop');
             break;
+        case 'toTop':
+            element.classList.add('toTop');
+            break;
     }
 }
 
@@ -174,6 +177,13 @@ const animate = (time) => {
     if(scrolling) {
         camera.lookAt(cameraTarget);
         camera.position.lerp(cameraTarget, 0.02);
+
+        if(stage == 0) {
+            stage += 1;
+            welcomeText.classList.remove('fromTop');
+            animateDOMElement(welcomeText, 'toTop');
+        }
+
     }
 
     // controls.update();

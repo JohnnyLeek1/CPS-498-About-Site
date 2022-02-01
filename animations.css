@@ -11,10 +11,21 @@
 .fromTop {
     position: relative;
     transform: translateY(-150px);
-    animation: slide_from_top 2s forwards;
+    animation: slideFromTop 2s forwards;
     opacity: 0;
 }
 
-@keyframes slide_from_top {
+@keyframes slideFromTop {
     100% { transform: translateY(0%); opacity: 1; }
+}
+
+.toTop {
+    position: relative;
+    transform: translateY(0%);
+    animation: slideToTop 2s forwards;
+    opacity: 1;
+}
+
+@keyframes slideToTop {
+    100% { transform: translateY(-150px); opacity: 0; }
 }
