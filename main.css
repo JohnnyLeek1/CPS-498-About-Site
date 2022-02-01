@@ -71,7 +71,9 @@ div {
 }
 
 .panel {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
+
+    backdrop-filter: blur(10px);
 
     padding: 4rem;
     margin: 2rem;
@@ -113,6 +115,7 @@ div {
 .panel .mayor > img {
     width: 100%;
     height: auto;
+    image-rendering: pixelated;
 }
 
 .row {

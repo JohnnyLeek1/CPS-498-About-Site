@@ -17,10 +17,15 @@ const renderer = new THREE.WebGLRenderer({
 const loading = document.getElementById('loading');
 const welcomeText = document.getElementById('welcome');
 const homeText = document.getElementById('how_it_started');
+const universityText = document.getElementById('university');
 
 // Waypoints
 const stage0Target = new THREE.Vector3(213, 441, 712);
 const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
+const stage2Target = new THREE.Vector3(1903, 132, -548.4);
+
+const stage1Rotation = new THREE.Euler(-0.35905023813947756, -0.2938329820693414, -0.10827588411287792);
+const stage2Rotation = new THREE.Euler(-1.5834528872798372, -1.1186401135901156, -1.5848667000168895);
 
 // Control variables
 let isLoading = true;
@@ -148,6 +153,8 @@ const initialize = async () => {
 
     await loadFBX('slums_1', 764, -917, new THREE.Vector3( 0, Math.PI / 2, 0));
 
+    await loadFBX('university', 2394, -543)
+
     // Initial camera position
     camera.position.x = 213;
     camera.position.y = 441;
@@ -193,42 +200,64 @@ const animate = () => {
     if(scrolling) {
         
         // Smoothly animate camera position
-        camera.position.lerp(cameraTarget, 0.02);
+        camera.position.lerp(cameraTarget, 0.03);
 
         // Scroll down logic
         if(scrollDown) {
 
             // Only focus camera position if scrolling down (so that we can move straight backwards instead of turning around when scrolling up)
-            camera.lookAt(cameraTarget);
             if(stage == 0) {
                 stage += 1;
                 animateDOMElement(welcomeText, 'toTop');
                 cameraTarget = stage1Target;
+                camera.rotation.copy(stage1Rotation);
             }
 
             if(stage == 1) {
-                const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
                 // Check if user has arrived
-                if(camera.position.x >= stage1Target.x - 25 && camera.position.z >= stage1Target.z - 100) {
+                if(camera.position.x >= stage1Target.x - 50 && camera.position.z >= stage1Target.z - 200) {
                     animateDOMElement(homeText, 'fromTop');
-                }
 
+
+                    if(camera.position.x >= stage1Target.x - 10 && camera.position.z >= stage1Target.z - 5) {
+                        stage += 1
+                        animateDOMElement(homeText, 'toTop');
+                        cameraTarget = stage2Target;
+                        camera.rotation.copy(stage2Rotation);
+                    }
+
+                } 
+            }
+
+            if(stage == 2) {
+                // Check if user has arrived
+                if(camera.position.x >= stage2Target.x - 50 && camera.position.z >= stage2Target.z - 200) {
+                    animateDOMElement(universityText, 'fromTop');
+                }
             }
 
         } else {
-            // Scroll up logic
-            if(stage == 0) {
-                // console.log(camera.position.x >= stage0Target.x - 75 && camera.position.y >= stage0Target.y - 75 && camera.position.z >= stage0Target.z - 75)
+            // TODO: Scroll up logic
+            // if(stage == 0) {
+            //     // console.log(camera.position.x >= stage0Target.x - 75 && camera.position.y >= stage0Target.y - 75 && camera.position.z >= stage0Target.z - 75)
 
-                if(camera.position.x >= stage0Target.x - 75 && camera.position.y >= stage0Target.y - 75 && camera.position.z >= stage0Target.z - 200) {
-                    animateDOMElement(welcomeText, 'fromTop');
-                }
-            }
+            //     if(camera.position.x >= stage0Target.x - 75 && camera.position.y >= stage0Target.y - 75 && camera.position.z >= stage0Target.z - 200) {
+            //         animateDOMElement(welcomeText, 'fromTop');
+            //     }
+            // }
 
-            if(stage == 1) {
-                stage -= 1;
-                cameraTarget = stage0Target;
-            }
+            // if(stage == 1) {
+            //     if(camera.position.x >= stage1Target.x - 25 && camera.position.z >= stage1Target.z - 100) {
+            //         animateDOMElement(homeText, 'toTop')
+            //         stage -= 1;
+            //         cameraTarget = stage0Target;
+            //     } 
+            // }
+
+            // if(stage == 2) {
+            //     stage -= 1;
+            //     cameraTarget = stage1Target;
+            // }
         }
 
     }
@@ -259,7 +288,8 @@ window.addEventListener('resize', () => {
 window.addEventListener('keydown', e => {
     if(e.key == 'g') {
         console.log(camera.position);
-        console.log(controls.object);
+        // console.log(controls.object);
+        console.log(camera.rotation);
     }
 });
 
