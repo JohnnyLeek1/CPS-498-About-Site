@@ -29,3 +29,25 @@
 @keyframes slideToTop {
     100% { transform: translateY(-150px); opacity: 0; }
 }
+
+.toLeft {
+    position: relative;
+    transform: translateX(0);
+    animation: slideToLeft 0.75s forwards;
+    opacity: 1;
+}
+
+.fromLeft {
+    position: relative;
+    transform: translateX(-150px);
+    animation: slideFromLeft 1s forwards;
+    opacity: 0;
+}
+
+@keyframes slideToLeft {
+    100% { transform: translateX(-150px); opacity: 0; }
+}
+
+@keyframes slideFromLeft {
+    100% { transform: translateX(0); opacity: 1; }
+}

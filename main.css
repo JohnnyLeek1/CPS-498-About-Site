@@ -67,7 +67,9 @@ div {
     top: 0;
     left: 0;
     width: 100vw;
-    align-items: center;
+    height: 100vh;
+    
+    display: flex;
 }
 
 .panel {
@@ -91,20 +93,49 @@ div {
     margin-left: auto; 
     margin-right: auto; 
     width: 40vw;
+    height: 30vh;
+}
+
+.left_panel {
+    background-color: rgba(0, 0, 0, 0.8);
+
+    backdrop-filter: blur(10px);
+
+    padding: 4rem;
+    margin: 2rem;
+
+    border-radius: 7px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    width: 40vw;
+    height: 60vh;
+
+    margin-left: 5vw;
 }
 
 .panel h3,
-.panel h4 {
+.panel h4,
+.left_panel h3,
+.left_panel h4 {
     font-weight: 100;
 }
 
-.panel .text {
+.panel .text,
+.left_panel .text {
     border-right: 1px solid #fff;
     padding-right: 10px;
     width: 80%;
 }
 
-.panel .mayor {
+.panel .mayor,
+.left_panel .mayor {
     margin-left: 30px;
     width: 20%;
     display: flex;
@@ -112,7 +143,8 @@ div {
     justify-content: center;
 }
 
-.panel .mayor > img {
+.panel .mayor > img,
+.left_panel .mayor > img {
     width: 100%;
     height: auto;
     image-rendering: pixelated;
@@ -122,4 +154,18 @@ div {
     display: flex;
     flex-direction: row;
     width: 100%;
+}
+
+.vertical_center {
+    align-items: center;
+}
+
+#team ul li {
+    text-align: left;
+    margin-bottom: 20px;
+    font-weight: 100;
+}
+
+#team ul .and {
+    list-style: none;
 }

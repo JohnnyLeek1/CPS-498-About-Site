@@ -18,14 +18,17 @@ const loading = document.getElementById('loading');
 const welcomeText = document.getElementById('welcome');
 const homeText = document.getElementById('how_it_started');
 const universityText = document.getElementById('university');
+const teamText = document.getElementById('team');
 
 // Waypoints
 const stage0Target = new THREE.Vector3(213, 441, 712);
 const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
 const stage2Target = new THREE.Vector3(1903, 132, -548.4);
+const stage3Target = new THREE.Vector3(2054, 762, 237);
 
 const stage1Rotation = new THREE.Euler(-0.35905023813947756, -0.2938329820693414, -0.10827588411287792);
 const stage2Rotation = new THREE.Euler(-1.5834528872798372, -1.1186401135901156, -1.5848667000168895);
+const stage3Rotation = new THREE.Euler(2.3587336732487794, -0.49158640750423344, 2.702531599618867);
 
 // Control variables
 let isLoading = true;
@@ -41,11 +44,16 @@ let cameraTarget = stage0Target;
 let oldRotation = undefined;
 let newRotation = undefined;
 
+// Animated objects
+let sigmaCube = undefined;
+
 
 
 // Initialize renderer
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 /**
  * Loads a .GLB/.GLTF file from the models folder and adds it to the scene
@@ -115,12 +123,24 @@ const animateDOMElement = (element, animation) => {
             element.classList.remove('fromTop');
             element.classList.add('toTop');
             break;
+        case 'fromLeft':
+            element.classList.remove('toLeft');
+            element.classList.add('fromLeft');
+            break;
+        case 'toLeft':
+            element.classList.remove('fromLeft');
+            element.classList.add('toLeft');
+            break;
     }
 }
 
 // Initialize lighting
 const ambientLight = new THREE.AmbientLight(0xFFFFFF);
 scene.add(ambientLight);
+// const directionalLight = new THREE.PointLight( 0xFFFFFF, 1, 100 ); 
+// scene.add(directionalLight);
+// directionalLight.castShadow = true;
+// directionalLight.position.set(new THREE.Vector3(0, 50, 0));
 
 // Initialize fog
 const fogColor = new THREE.Color(0xFFFFFF);
@@ -131,7 +151,7 @@ scene.fog = new THREE.Fog(fogColor, 1000, 1550);
 // Initialize scene
 const initialize = async () => {
 
-    console.log('%cInitializing SIGMA City! Please wait...', 'background-color: #31d472; padding: 2rem; color: #fff; font-size: 2rem;')
+    console.log('%cInitializing SIGMA City! Please wait...', 'background-color: #31d472; padding: 2rem; color: #fff; font-size: 2rem;');
 
     // Wait for each model to load in and be added to the scene
     await loadFBX('city_block2', 164, -543);
@@ -151,9 +171,26 @@ const initialize = async () => {
     await loadFBX('city_block5', 1664, -543);
     await loadFBX('city_block2', 1664, 649);
 
-    await loadFBX('slums_1', 764, -917, new THREE.Vector3( 0, Math.PI / 2, 0));
+    await loadFBX('slums1', 764, -917, new THREE.Vector3( 0, Math.PI / 2, 0));
 
-    await loadFBX('university', 2394, -543)
+    await loadFBX('university', 2394, -543);
+
+    const colinTexture = new THREE.TextureLoader().load('img/colin.jpg');
+    const curtisTexture = new THREE.TextureLoader().load('img/curtis.jpg');
+    const jeremyTexture = new THREE.TextureLoader().load('img/jeremy.png');
+    const johnnyTexture = new THREE.TextureLoader().load('img/johnny.jpg');
+    const kayleeTexture = new THREE.TextureLoader().load('img/kaylee.png');
+    const owenTexture = new THREE.TextureLoader().load('img/owen.png');
+    
+    const sigmaCubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
+    const sigmaCubeMaterials = [ new THREE.MeshBasicMaterial( { map: colinTexture } ), new THREE.MeshBasicMaterial( { map: curtisTexture } ), new THREE.MeshBasicMaterial( { map: jeremyTexture } ), 
+        new THREE.MeshBasicMaterial( { map: johnnyTexture } ), new THREE.MeshBasicMaterial( { map: kayleeTexture } ), new THREE.MeshBasicMaterial( { map: owenTexture } ), ]
+    
+    sigmaCube = new THREE.Mesh( sigmaCubeGeometry, sigmaCubeMaterials );
+    scene.add( sigmaCube );
+    sigmaCube.position.x = stage3Target.x;
+    sigmaCube.position.y = stage3Target.y + 1.25;
+    sigmaCube.position.z = stage3Target.z + 2;
 
     // Initial camera position
     camera.position.x = 213;
@@ -172,6 +209,7 @@ const initialize = async () => {
         welcomeText.classList.remove('hidden');
         animateDOMElement(welcomeText, 'fromTop');
         isLoading = false;
+        console.log('%cWelcome to SIGMA City! Enjoy!', 'background-color: #31d472; padding: 2rem; color: #fff; font-size: 2rem;');
     }, 1000);
 }
 
@@ -194,13 +232,15 @@ const nextTween = () => {
 }
 
 // Animation loop
-const animate = () => {
+const animate = (time) => {
     requestAnimationFrame( animate );
+
+    const timeStep = 0.03;
 
     if(scrolling) {
         
         // Smoothly animate camera position
-        camera.position.lerp(cameraTarget, 0.03);
+        camera.position.lerp(cameraTarget, timeStep);
 
         // Scroll down logic
         if(scrollDown) {
@@ -233,6 +273,26 @@ const animate = () => {
                 // Check if user has arrived
                 if(camera.position.x >= stage2Target.x - 50 && camera.position.z >= stage2Target.z - 200) {
                     animateDOMElement(universityText, 'fromTop');
+
+                    if(camera.position.x >= stage2Target.x - 10 && camera.position.z >= stage2Target.z - 5) {
+                        stage += 1
+                        animateDOMElement(universityText, 'toTop');
+                        cameraTarget = stage3Target;
+                        camera.rotation.copy(stage3Rotation);
+                    }
+                }
+            }
+
+            if(stage == 3) {
+                if(camera.position.x >= stage3Target.x - 5 && camera.position.z >= stage3Target.z - 5) {
+                    animateDOMElement(teamText, 'fromLeft');
+
+                    // if(camera.position.x >= stage3Target.x - 1 && camera.position.z >= stage3Target.z - 1) {
+                    //     stage += 1
+                    //     animateDOMElement(teamText, 'toLeft');
+                    //     cameraTarget = stage1Target;
+                    //     camera.rotation.copy(stage1Rotation);
+                    // }
                 }
             }
 
@@ -261,6 +321,10 @@ const animate = () => {
         }
 
     }
+
+    sigmaCube.rotation.x += 0.01;
+    sigmaCube.rotation.y += 0.005;
+    sigmaCube.rotation.z += 0.01;
 
     // controls.update();
     TWEEN.update();
