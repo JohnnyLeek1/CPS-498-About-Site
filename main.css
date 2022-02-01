@@ -1,29 +1,136 @@
 html, body {
     padding: 0;
     margin: 0;
+
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
+}
+
+body.content-loading {
+    overflow: hidden;
 }
 
 canvas {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: -99;
+
+    /* Uncomment this for debugging and using OrbitControls */
+    /* z-index: 999; */
 }
 
-main {
-    position: absolute;
-    color: #FFF;
-    font-family: 'Impact', sans-serif;
-    z-index: 999;
+div {
+    z-index: 1;
+}
 
-    width: 100%;
-    height: 100%;
+#loading {    
+    width: 100vw;
+    height: 100vh;
 
     display: flex;
+    justify-content: center;
+    align-items: center;
+
     flex-direction: column;
-    justify-content: space-between;
+
+    background-color: #FA8BFF;
+    background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);    
+}
+
+#loading > .container {
+    background-color: rgba(0, 0, 0, 0.7);
+
+    padding: 4rem;
+    border-radius: 7px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+
+    text-align: center;
+    font-weight: 100;
+    font-size: 1.2rem;
+}
+
+.absolute_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
     align-items: center;
 }
 
-main > h1 {
+#welcome {
+    background-color: rgba(0, 0, 0, 0.7);
+
+    padding: 4rem;
+    margin: 2rem;
+
+    border-radius: 7px;
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 40vw;
+}
+
+#welcome h3,
+#welcome h4 {
     font-weight: 100;
+}
+
+#welcome .text {
+    border-right: 1px solid #fff;
+    padding-right: 10px;
+    width: 80%;
+}
+
+#welcome .mayor {
+    margin-left: 30px;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#welcome .mayor > img {
+    width: 100%;
+    height: auto;
+}
+
+#how_it_started {
+    position: absolute;
+    /* top: 4000px; */
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+}
+
+#how_it_started > h1 {
+    color: #000;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 }

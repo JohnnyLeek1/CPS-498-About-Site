@@ -8,20 +8,52 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="animations.css">
         <link rel="stylesheet" href="main.css">
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.umd.js"></script> -->
     </head>
-    <body>
+    <body class="content-loading">
         <canvas id="background"></canvas>
 
-        <main>
-            <h1>
-                SIGMA Cube
-            </h1>
-            <h1>
-                Bottom Text
-            </h1>
-        </main>
-
+        <div id="loading">
+            <div class="container">
+                <!-- Loading Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                    <circle cx="30" cy="50" fill="#e83e8c" r="20">
+                    <animate attributeName="cx" repeatCount="indefinite" dur="1s" keyTimes="0;0.5;1" values="30;70;30" begin="-0.5s"></animate>
+                    </circle>
+                    <circle cx="70" cy="50" fill="#2a9fd6" r="20">
+                    <animate attributeName="cx" repeatCount="indefinite" dur="1s" keyTimes="0;0.5;1" values="30;70;30" begin="0s"></animate>
+                    </circle>
+                    <circle cx="30" cy="50" fill="#e83e8c" r="20">
+                    <animate attributeName="cx" repeatCount="indefinite" dur="1s" keyTimes="0;0.5;1" values="30;70;30" begin="-0.5s"></animate>
+                    <animate attributeName="fill-opacity" values="0;0;1;1" calcMode="discrete" keyTimes="0;0.499;0.5;1" dur="1s" repeatCount="indefinite"></animate>
+                    </circle>
+                </svg>
+                <p>
+                    Heading to SIGMA City...
+                </p>
+            </div> 
+        </div>
+        <div class="absolute_container">
+            <div id="welcome" class="hidden">
+                <div class="row">
+                    <div class="text">
+                        <h1>Welcome to SIGMA City!</h1>
+                        <h3>This is a prosperous town, built on the capital gains of our founders.</h3>
+                        <h4>Let me show you around, and you can learn about the project, and the philosophies backing its goals and ideas!</h4>
+                        <br />
+                        <h4>Start scrolling and I'll show you around!</h4>
+                    </div>
+                    <div class="mayor">
+                        <img src="img/mayor.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="how_it_started">
+            <h1>HERE</h1>
+        </div>
         <script type="module" src="main.js"></script>
     </body>
 

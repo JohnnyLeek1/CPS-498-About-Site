@@ -1,0 +1,20 @@
+.fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.fromTop {
+    position: relative;
+    transform: translateY(-150px);
+    animation: slide_from_top 2s forwards;
+    opacity: 0;
+}
+
+@keyframes slide_from_top {
+    100% { transform: translateY(0%); opacity: 1; }
+}
