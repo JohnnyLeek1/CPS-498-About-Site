@@ -169,3 +169,16 @@ div {
 #team ul .and {
     list-style: none;
 }
+
+.left_align {
+    text-align: left;
+}
+
+#what_is_it {
+    width: 60vw;
+    height: 70vh;
+}
+
+#what_is_it h4 {
+    line-height: 2rem;
+}

@@ -19,16 +19,19 @@ const welcomeText = document.getElementById('welcome');
 const homeText = document.getElementById('how_it_started');
 const universityText = document.getElementById('university');
 const teamText = document.getElementById('team');
+const whatIsIt = document.getElementById('what_is_it');
 
 // Waypoints
 const stage0Target = new THREE.Vector3(213, 441, 712);
 const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
 const stage2Target = new THREE.Vector3(1903, 132, -548.4);
 const stage3Target = new THREE.Vector3(2054, 762, 237);
+const stage4Target = new THREE.Vector3(-303, 140.5, 157.8);
 
 const stage1Rotation = new THREE.Euler(-0.35905023813947756, -0.2938329820693414, -0.10827588411287792);
 const stage2Rotation = new THREE.Euler(-1.5834528872798372, -1.1186401135901156, -1.5848667000168895);
 const stage3Rotation = new THREE.Euler(2.3587336732487794, -0.49158640750423344, 2.702531599618867);
+const stage4Rotation = new THREE.Euler(-2.4267208222128223,  0.8138998874683432, 2.5786644208870713);
 
 // Control variables
 let isLoading = true;
@@ -175,6 +178,9 @@ const initialize = async () => {
 
     await loadFBX('university', 2394, -543);
 
+    // Suburbs
+    await loadFBX('suburban_block2', -435, 53, new THREE.Vector3( 0, Math.PI / 2, 0));
+
     const colinTexture = new THREE.TextureLoader().load('img/colin.jpg');
     const curtisTexture = new THREE.TextureLoader().load('img/curtis.jpg');
     const jeremyTexture = new THREE.TextureLoader().load('img/jeremy.png');
@@ -255,7 +261,7 @@ const animate = (time) => {
 
             if(stage == 1) {
                 // Check if user has arrived
-                if(camera.position.x >= stage1Target.x - 50 && camera.position.z >= stage1Target.z - 200) {
+                if(camera.position.x >= stage1Target.x - 100 && camera.position.z >= stage1Target.z - 300) {
                     animateDOMElement(homeText, 'fromTop');
 
 
@@ -271,10 +277,10 @@ const animate = (time) => {
 
             if(stage == 2) {
                 // Check if user has arrived
-                if(camera.position.x >= stage2Target.x - 50 && camera.position.z >= stage2Target.z - 200) {
+                if(camera.position.x >= stage2Target.x - 150 && camera.position.z >= stage2Target.z - 300) {
                     animateDOMElement(universityText, 'fromTop');
 
-                    if(camera.position.x >= stage2Target.x - 10 && camera.position.z >= stage2Target.z - 5) {
+                    if(camera.position.x >= stage2Target.x - 20 && camera.position.z >= stage2Target.z - 15) {
                         stage += 1
                         animateDOMElement(universityText, 'toTop');
                         cameraTarget = stage3Target;
@@ -287,12 +293,18 @@ const animate = (time) => {
                 if(camera.position.x >= stage3Target.x - 5 && camera.position.z >= stage3Target.z - 5) {
                     animateDOMElement(teamText, 'fromLeft');
 
-                    // if(camera.position.x >= stage3Target.x - 1 && camera.position.z >= stage3Target.z - 1) {
-                    //     stage += 1
-                    //     animateDOMElement(teamText, 'toLeft');
-                    //     cameraTarget = stage1Target;
-                    //     camera.rotation.copy(stage1Rotation);
-                    // }
+                    if(camera.position.x >= stage3Target.x - 0.5 && camera.position.z >= stage3Target.z - 0.5) {
+                        stage += 1
+                        animateDOMElement(teamText, 'toLeft');
+                        cameraTarget = stage4Target;
+                        camera.rotation.copy(stage4Rotation);
+                    }
+                }
+            }
+
+            if(stage == 4) {
+                if(camera.position.x <= stage4Target.x + 150 && camera.position.z <= stage4Target.z + 150) {
+                    animateDOMElement(whatIsIt, 'fromTop');
                 }
             }
 
