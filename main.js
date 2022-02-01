@@ -16,6 +16,11 @@ const renderer = new THREE.WebGLRenderer({
 // DOM Elements
 const loading = document.getElementById('loading');
 const welcomeText = document.getElementById('welcome');
+const homeText = document.getElementById('how_it_started');
+
+// Waypoints
+const stage0Target = new THREE.Vector3(213, 441, 712);
+const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
 
 // Control variables
 let isLoading = true;
@@ -24,9 +29,14 @@ let stage = 0;
 let tweening = false;
 let scrolling = false;
 
-let cameraTarget = new THREE.Vector3(213, 441, 712);
+let scrollUp = false;
+let scrollDown = false;
+
+let cameraTarget = stage0Target;
 let oldRotation = undefined;
 let newRotation = undefined;
+
+
 
 // Initialize renderer
 renderer.setPixelRatio( window.devicePixelRatio );
@@ -87,14 +97,17 @@ const loadFBX = async (fileName, x, z, rotation) => {
  * @param {String} animation - Animation name
  */
 const animateDOMElement = (element, animation) => {
+    element.classList.remove('hidden');
     switch(animation) {
         case 'fadeOut':
             element.classList.add('fadeOut');
             break;
         case 'fromTop':
+            element.classList.remove('toTop');
             element.classList.add('fromTop');
             break;
         case 'toTop':
+            element.classList.remove('fromTop');
             element.classList.add('toTop');
             break;
     }
@@ -108,7 +121,7 @@ scene.add(ambientLight);
 const fogColor = new THREE.Color(0xFFFFFF);
 scene.background = fogColor;
 
-scene.fog = new THREE.Fog(fogColor, 1000, 1750);
+scene.fog = new THREE.Fog(fogColor, 1000, 1550);
 
 // Initialize scene
 const initialize = async () => {
@@ -143,7 +156,7 @@ const initialize = async () => {
     // Look at center of city
     camera.lookAt(1700, -800, -887);
 
-    cameraTarget = new THREE.Vector3(536.9, 59.4, -829.7);
+    cameraTarget = stage1Target;
 
     animateDOMElement(loading, 'fadeOut');
 
@@ -167,21 +180,55 @@ const nextTween = () => {
 
 
     // Tween
-    new TWEEN.Tween(camera.rotation).to({x: endRotation.x, y: endRotation.y, z: endRotation.z}, 250).start();
+    new TWEEN.Tween(camera.rotation)
+        .to({x: endRotation.x, y: endRotation.y, z: endRotation.z}, 250)
+        .onComplete(() => tweening = false)
+        .start();
 }
 
 // Animation loop
-const animate = (time) => {
+const animate = () => {
     requestAnimationFrame( animate );
 
     if(scrolling) {
-        camera.lookAt(cameraTarget);
+        
+        // Smoothly animate camera position
         camera.position.lerp(cameraTarget, 0.02);
 
-        if(stage == 0) {
-            stage += 1;
-            welcomeText.classList.remove('fromTop');
-            animateDOMElement(welcomeText, 'toTop');
+        // Scroll down logic
+        if(scrollDown) {
+
+            // Only focus camera position if scrolling down (so that we can move straight backwards instead of turning around when scrolling up)
+            camera.lookAt(cameraTarget);
+            if(stage == 0) {
+                stage += 1;
+                animateDOMElement(welcomeText, 'toTop');
+                cameraTarget = stage1Target;
+            }
+
+            if(stage == 1) {
+                const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
+                // Check if user has arrived
+                if(camera.position.x >= stage1Target.x - 25 && camera.position.z >= stage1Target.z - 100) {
+                    animateDOMElement(homeText, 'fromTop');
+                }
+
+            }
+
+        } else {
+            // Scroll up logic
+            if(stage == 0) {
+                // console.log(camera.position.x >= stage0Target.x - 75 && camera.position.y >= stage0Target.y - 75 && camera.position.z >= stage0Target.z - 75)
+
+                if(camera.position.x >= stage0Target.x - 75 && camera.position.y >= stage0Target.y - 75 && camera.position.z >= stage0Target.z - 200) {
+                    animateDOMElement(welcomeText, 'fromTop');
+                }
+            }
+
+            if(stage == 1) {
+                stage -= 1;
+                cameraTarget = stage0Target;
+            }
         }
 
     }
@@ -227,15 +274,28 @@ window.addEventListener('keydown', e => {
  * @returns custom event listener
  */
 const createWheelStopListener = callback => {
-    var handle = null;
-    var onScroll = function() {
+    let handle = null;
+    const onScroll = e => {
+        console.log(e);
         if(!isLoading) {       
             scrolling = true;
 
-            if(!tweening) {
-                tweening = true;
-                nextTween();
+            // Determine up or down scroll
+            if(e.deltaY < 0) {
+                scrollUp = true;
+                scrollDown = false;
+            } else {
+                scrollDown = true;
+                scrollUp = false;
             }
+
+            // Only tween if not currently tweening or if the user is scrolling down
+            // (we want the camera to animate backwards instead of spinning aroundg if they're scrolling up)
+            // Not gonna tween for now but maybe later
+            // if(!tweening && scrollDown) {
+            //     tweening = true;
+            //     nextTween();
+            // }
 
             if (handle) {
                 clearTimeout(handle);
@@ -243,9 +303,9 @@ const createWheelStopListener = callback => {
             handle = setTimeout(callback, 200);
         }
     };
-    window.addEventListener('wheel', onScroll);
+    let listener = window.addEventListener('wheel', e => onScroll(e));
     return function() {
-        window.removeEventListener('wheel', onScroll);
+        window.removeEventListener(listener);
     };
 }
 

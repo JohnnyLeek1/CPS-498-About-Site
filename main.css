@@ -70,7 +70,7 @@ div {
     align-items: center;
 }
 
-#welcome {
+.panel {
     background-color: rgba(0, 0, 0, 0.7);
 
     padding: 4rem;
@@ -91,18 +91,18 @@ div {
     width: 40vw;
 }
 
-#welcome h3,
-#welcome h4 {
+.panel h3,
+.panel h4 {
     font-weight: 100;
 }
 
-#welcome .text {
+.panel .text {
     border-right: 1px solid #fff;
     padding-right: 10px;
     width: 80%;
 }
 
-#welcome .mayor {
+.panel .mayor {
     margin-left: 30px;
     width: 20%;
     display: flex;
@@ -110,23 +110,9 @@ div {
     justify-content: center;
 }
 
-#welcome .mayor > img {
+.panel .mayor > img {
     width: 100%;
     height: auto;
-}
-
-#how_it_started {
-    position: absolute;
-    /* top: 4000px; */
-    left: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-}
-
-#how_it_started > h1 {
-    color: #000;
 }
 
 .row {
