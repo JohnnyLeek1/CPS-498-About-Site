@@ -242,3 +242,11 @@ const createWheelStopListener = callback => {
 createWheelStopListener(() => {
     scrolling = false;
 })
+
+/**
+ * Allows for mobile users to trigger a wheel event
+ */
+window.addEventListener('touchmove', () => {
+    const e = new Event('wheel');
+    window.dispatchEvent(e);
+})
