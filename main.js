@@ -162,6 +162,20 @@ scene.background = fogColor;
 
 scene.fog = new THREE.Fog(fogColor, 1000, 1550);
 
+/**
+ * Checks if the screen size is the minimum requirement, otherwise displays error message
+ */
+const smallScreenSizeCheck = () => {
+    // Screen too small to handle content properly
+    if(window.innerWidth < 1280 || window.innerHeight < 845) {
+        screenTooSmall.classList.remove('hidden');
+    } else {
+        if(!screenTooSmall.classList.contains('hidden')) {
+            screenTooSmall.classList.add('hidden');
+        }
+    }
+}
+
 // Initialize scene
 const initialize = async () => {
 
@@ -220,6 +234,7 @@ const initialize = async () => {
     cameraTarget = stage1Target;
 
     animateDOMElement(loading, 'fadeOut');
+    smallScreenSizeCheck();
 
     // Await for loading screen to fade out before dropping in new text
     setTimeout(() => {
@@ -382,28 +397,19 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // Screen too small to handle content properly
-    if(window.innerWidth < 1280 || window.innerHeight < 845) {
-        screenTooSmall.classList.remove('hidden');
-    } else {
-        if(!screenTooSmall.classList.contains('hidden')) {
-            screenTooSmall.classList.add('hidden');
-        }
-    }
-
-    console.log(window.innerWidth, window.innerHeight);
+    smallScreenSizeCheck();
 }, false);
 
 /**
  * Debug listener to print camera position when the 'g' key is pressed.
  */
-window.addEventListener('keydown', e => {
-    if(e.key == 'g') {
-        console.log(camera.position);
-        // console.log(controls.object);
-        console.log(camera.rotation);
-    }
-});
+// window.addEventListener('keydown', e => {
+//     if(e.key == 'g') {
+//         console.log(camera.position);
+//         // console.log(controls.object);
+//         console.log(camera.rotation);
+//     }
+// });
 
 
 /**
@@ -418,7 +424,6 @@ window.addEventListener('keydown', e => {
 const createWheelStopListener = callback => {
     let handle = null;
     const onScroll = e => {
-        console.log(e);
         if(!isLoading) {       
             scrolling = true;
 
