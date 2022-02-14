@@ -20,6 +20,7 @@ const homeText = document.getElementById('how_it_started');
 const universityText = document.getElementById('university');
 const teamText = document.getElementById('team');
 const whatIsIt = document.getElementById('what_is_it');
+const resources = document.getElementById('resources');
 
 // Waypoints
 const stage0Target = new THREE.Vector3(213, 441, 712);
@@ -27,11 +28,13 @@ const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
 const stage2Target = new THREE.Vector3(1903, 132, -548.4);
 const stage3Target = new THREE.Vector3(2054, 762, 237);
 const stage4Target = new THREE.Vector3(-303, 140.5, 157.8);
+const stage5Target = new THREE.Vector3(1568.5, 20.85, 54);
 
 const stage1Rotation = new THREE.Euler(-0.35905023813947756, -0.2938329820693414, -0.10827588411287792);
 const stage2Rotation = new THREE.Euler(-1.5834528872798372, -1.1186401135901156, -1.5848667000168895);
 const stage3Rotation = new THREE.Euler(2.3587336732487794, -0.49158640750423344, 2.702531599618867);
 const stage4Rotation = new THREE.Euler(-2.4267208222128223,  0.8138998874683432, 2.5786644208870713);
+const stage5Rotation = new THREE.Euler(-0.45259459496448023, -0.5775678038895755, -0.2595049985859285);
 
 // Control variables
 let isLoading = true;
@@ -186,7 +189,7 @@ const initialize = async () => {
     const jeremyTexture = new THREE.TextureLoader().load('img/jeremy.png');
     const johnnyTexture = new THREE.TextureLoader().load('img/johnny.jpg');
     const kayleeTexture = new THREE.TextureLoader().load('img/kaylee.png');
-    const owenTexture = new THREE.TextureLoader().load('img/owen.png');
+    const owenTexture = new THREE.TextureLoader().load('img/owen.jpeg');
     
     const sigmaCubeGeometry = new THREE.BoxGeometry( 1, 1, 1 );
     const sigmaCubeMaterials = [ new THREE.MeshBasicMaterial( { map: colinTexture } ), new THREE.MeshBasicMaterial( { map: curtisTexture } ), new THREE.MeshBasicMaterial( { map: jeremyTexture } ), 
@@ -303,8 +306,22 @@ const animate = (time) => {
             }
 
             if(stage == 4) {
-                if(camera.position.x <= stage4Target.x + 150 && camera.position.z <= stage4Target.z + 150) {
+                if(camera.position.x <= stage4Target.x + 225 && camera.position.z <= stage4Target.z + 225) {
                     animateDOMElement(whatIsIt, 'fromTop');
+
+                    
+                    if(camera.position.x <= stage4Target.x + 35 && camera.position.z <= stage4Target.z + 35) {
+                        stage += 1
+                        animateDOMElement(whatIsIt, 'toTop');
+                        cameraTarget = stage5Target;
+                        camera.rotation.copy(stage5Rotation);
+                    }
+                }
+            }
+
+            if(stage == 5) {
+                if(camera.position.x >= stage5Target.x - 150 && camera.position.z >= stage5Target.z - 150) {
+                    animateDOMElement(resources, 'fromTop');
                 }
             }
 

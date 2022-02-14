@@ -160,7 +160,8 @@ div {
     align-items: center;
 }
 
-#team ul li {
+#team ul li,
+#resources ul li {
     text-align: left;
     margin-bottom: 20px;
     font-weight: 100;
@@ -181,4 +182,15 @@ div {
 
 #what_is_it h4 {
     line-height: 2rem;
+}
+
+li > a {
+    font-weight: 400;
+    color: #2a9fd6;
+
+    transition: color .1s;
+}
+
+li > a:hover {
+    color: #e83e8c;
 }
