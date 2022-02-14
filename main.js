@@ -22,6 +22,8 @@ const teamText = document.getElementById('team');
 const whatIsIt = document.getElementById('what_is_it');
 const resources = document.getElementById('resources');
 
+const screenTooSmall = document.getElementById('screen_too_small');
+
 // Waypoints
 const stage0Target = new THREE.Vector3(213, 441, 712);
 const stage1Target = new THREE.Vector3(536.9, 59.4, -829.7);
@@ -143,10 +145,16 @@ const animateDOMElement = (element, animation) => {
 // Initialize lighting
 const ambientLight = new THREE.AmbientLight(0xFFFFFF);
 scene.add(ambientLight);
-// const directionalLight = new THREE.PointLight( 0xFFFFFF, 1, 100 ); 
+// const directionalLight = new THREE.DirectionalLight( 0xFFFFFF, 1 ); 
 // scene.add(directionalLight);
+
+// const helper = new THREE.DirectionalLightHelper(directionalLight);
+// scene.add(helper);
+
 // directionalLight.castShadow = true;
-// directionalLight.position.set(new THREE.Vector3(0, 50, 0));
+// directionalLight.position.setY(200);
+// directionalLight.position.setX(50);
+// directionalLight.position.set(new THREE.Vector3(0, 0, 0));
 
 // Initialize fog
 const fogColor = new THREE.Color(0xFFFFFF);
@@ -372,7 +380,18 @@ document.addEventListener("DOMContentLoaded", async function() {
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight
     camera.updateProjectionMatrix()
-    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Screen too small to handle content properly
+    if(window.innerWidth < 1280 || window.innerHeight < 845) {
+        screenTooSmall.classList.remove('hidden');
+    } else {
+        if(!screenTooSmall.classList.contains('hidden')) {
+            screenTooSmall.classList.add('hidden');
+        }
+    }
+
+    console.log(window.innerWidth, window.innerHeight);
 }, false);
 
 /**

@@ -36,7 +36,8 @@ div {
     z-index: 1;
 }
 
-#loading {    
+#loading,
+#screen_too_small {    
     width: 100vw;
     height: 100vh;
 
@@ -50,7 +51,8 @@ div {
     background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);    
 }
 
-#loading > .container {
+#loading > .container,
+#screen_too_small > .container {
     background-color: rgba(0, 0, 0, 0.7);
 
     padding: 4rem;
@@ -60,6 +62,17 @@ div {
     text-align: center;
     font-weight: 100;
     font-size: 1.2rem;
+}
+
+#screen_too_small {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+}
+
+#screen_too_small > .container {
+    margin: 4rem;
 }
 
 .absolute_container {
