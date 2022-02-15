@@ -47,6 +47,7 @@ html {
     min-width: 30vw;
 
     background-color: rgba(35, 35, 35, 0.8);
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
 }
 
 .panel-contents {
