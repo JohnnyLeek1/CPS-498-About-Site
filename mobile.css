@@ -6,7 +6,7 @@ html, body {
     font-family: 'Roboto', sans-serif;
 
     min-height: 100vh;
-    width: 100vw;
+    max-width: 100vw;
 }
 
 body {
@@ -14,11 +14,18 @@ body {
     background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
 
     display: flex;
-    /* align-items: center; */
     justify-content: center;
 
     flex-direction: column;
     padding-bottom: 10vh;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
 }
 
 .container {
