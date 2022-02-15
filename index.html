@@ -10,9 +10,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
 
         <link rel="stylesheet" href="mobile.css">
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.halo.min.js"></script>
     </head>
     <body>
-        
+        <div id="background"></div>
         <div class="container">
             <div id="welcome" class="panel">
                 <h2 class="weight-100 underline">SIGMA</h2>
@@ -80,5 +83,18 @@
                 </ul>
             </div>
         </div>
+
+        <script>
+            VANTA.HALO({
+              el: "#background",
+              mouseControls: true,
+              touchControls: true,
+              gyroControls: false,
+              minHeight: 200.00,
+              minWidth: 200.00,
+              amplitudeFactor: 2.40,
+              size: 1.5
+            })
+        </script>
     </body>
 </html>
