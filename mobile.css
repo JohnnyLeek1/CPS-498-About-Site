@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-    background-color: #FF3CAC;
+    background-color: #131a43;
     background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
 
     display: flex;
