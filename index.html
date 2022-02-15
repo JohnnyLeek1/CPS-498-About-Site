@@ -8,161 +8,76 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="animations.css">
-        <link rel="stylesheet" href="main.css">
+
+        <link rel="stylesheet" href="mobile.css">
     </head>
-    <body class="content-loading">
-        <canvas id="background"></canvas>
+    <body>
+        
+        <div class="container">
+            <div id="welcome" class="panel">
+                <h2 class="weight-100 underline">SIGMA</h2>
+                <h4 class="weight-100">CPS 498 Fall 2021 | Team 04</h4>
+                <h4 class="weight-100">Central Michigan University</h4>
+                <h4 class="weight-100">Department of Computer Science</h4>
+                <h4 class="weight-100">Professor Alex Redei</h4>
 
-        <div id="loading">
-            <div class="container">
-                <!-- Loading Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                    <circle cx="30" cy="50" fill="#e83e8c" r="20">
-                    <animate attributeName="cx" repeatCount="indefinite" dur="1s" keyTimes="0;0.5;1" values="30;70;30" begin="-0.5s"></animate>
-                    </circle>
-                    <circle cx="70" cy="50" fill="#2a9fd6" r="20">
-                    <animate attributeName="cx" repeatCount="indefinite" dur="1s" keyTimes="0;0.5;1" values="30;70;30" begin="0s"></animate>
-                    </circle>
-                    <circle cx="30" cy="50" fill="#e83e8c" r="20">
-                    <animate attributeName="cx" repeatCount="indefinite" dur="1s" keyTimes="0;0.5;1" values="30;70;30" begin="-0.5s"></animate>
-                    <animate attributeName="fill-opacity" values="0;0;1;1" calcMode="discrete" keyTimes="0;0.499;0.5;1" dur="1s" repeatCount="indefinite"></animate>
-                    </circle>
-                </svg>
-                <p>
-                    Heading to SIGMA City...
+                <div class="separator"></div>
+                <a id="city-link" href="/city.html">Interested in a more interactive version? Click Here</a>
+            </div>
+        </div>
+        <div class="dots"></div>
+        <div class="container">
+            <div id="about" class="panel">
+                <h2 class="weight-100 underline">ABOUT</h2>
+                <p>                            
+                    Super Intricate Gamified Market Analysis (SIGMA) is a gamified stock market simulation in the form of a modern web page which heavily emphasizes social interaction. Users can create a profile using either their email or social media accounts and can invite their friends to compete in various market competitions. Each competition lasts for a certain time frame (specified by the competition creator) and has different goals depending on the competition type. Users can customize an avatar using collectibles which are unlocked by participating in various tournaments and challenges, alongside collecting achievements by completing tasks during their competitions. While using the SIGMA site, users can learn more about the stock market and how they can intelligently invest their money. SIGMA asks about the user’s general knowledge with investing and will tailor the learning experience to accommodate.  SIGMA allows users to learn how to trade on the stock market without fear of losing actual money. The goal of SIGMA is to get users to feel confident in taking what they have learned from the game and applying it to the actual stock market while also keeping users coming back to play because they enjoy the game.
                 </p>
-            </div> 
+            </div>
         </div>
-        <div id="screen_too_small" class="hidden">
-            <div class="container">
-                <h3>Sorry, but your screen size is too small to be able to enjoy SIGMA City. Click <a>here</a> to view the content in a mobile way.</h3>
-            </div> 
-        </div>
-        <div class="absolute_container">
-            <div id="welcome" class="hidden panel">
-                <div class="row">
-                    <div class="text">
-                        <h1>Welcome to SIGMA City!</h1>
-                        <h3>This is a prosperous town, built on the capital gains of our founders.</h3>
-                        <h4>Let me show you around, and you can learn about the project, and the philosophies backing its goals and ideas!</h4>
-                        <br />
-                        <h4>Start scrolling and I'll show you around!</h4>
+        <div class="dots"></div>
+        <div class="container">
+            <div id="team" class="panel">
+                <h2 class="weight-100 underline">TEAM</h2>
+                <h3 class="weight-100">The SIGMA Team Consists of:</h3>
+                <div class="panel-contents">
+                    <div class="member">
+                        <img src="img/colin.jpg" alt="Colin Truemner" class="team-img" />
+                        <h5 class="weight-100">Colin Truemner</h5>
                     </div>
-                    <div class="mayor">
-                        <img src="img/mayor.png" />
+                    <div class="member">
+                        <img src="img/jeremy.png" alt="Jeremy Proksch" class="team-img" />
+                        <h5 class="weight-100">Jeremy Proksch</h5>
+                    </div>
+                    <div class="member">
+                        <img src="img/johnny.jpg" alt="Johnny Leek" class="team-img" />
+                        <h5 class="weight-100">Johnny Leek</h5>
+                    </div>
+                    <div class="member">
+                        <img src="img/kaylee.png" alt="Kaylee Dziura" class="team-img" />
+                        <h5 class="weight-100">Kaylee Dziura</h5>
+                    </div>
+                    <div class="member">
+                        <img src="img/owen.jpeg" alt="Owen Smith" class="team-img" />
+                        <h5 class="weight-100">Owen Smith</h5>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="absolute_container">
-            <div id="how_it_started" class="hidden panel">
-                <div class="row">
-                    <div class="text">
-                        <h1>Ah... My home.</h1>
-                        <h3>This is where I grew up!</h3>
-                        <h4>I feel all of the nostalgia flooding back now. There's one day I remember more than any other though:</h4>
-                        <h4>The day I was accepted into university.</h4>
-                        <br />
-                        <h4>Scroll to continue...</h4>
-                    </div>
-                    <div class="mayor">
-                        <img src="img/mayor_slums.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="absolute_container">
-            <div id="university" class="hidden panel">
-                <div class="row">
-                    <div class="text">
-                        <h1>SIGMA University.</h1>
-                        <h3>This is where the project began.</h3>
-                        <h4>
-                            It was the Spring 2022 semester, my senior capstone project for CPS 498.
-                            I collaborated with six students from Central Michigan University taking the same course.
-                        </h4>
-                        <br />
-                        <h4>Scroll to continue...</h4>
-                    </div>
-                    <div class="mayor">
-                        <img src="img/mayor_gradatated.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="absolute_container vertical_center">
-            <div id="team" class="hidden left_panel">
-                <div class="row">
-                    <div class="text">
-                        <h1>The Team</h1>
-                        <h3>Working under Dr. Alex Redei, the SIGMA Team consisted of:</h3>
-                        <ul>
-                            <li>Colin Truemner</li>
-                            <li>Curtis Essenmacher</li>
-                            <li>Jeremy Proksch</li>
-                            <li>Johnny Leek</li>
-                            <li>Kaylee Dziura</li>
-                            <li class="and">and</li>
-                            <li>Owen Smith</li>
-                        </ul>
-                        <br />
-                        <h4>Scroll to continue...</h4>
-                    </div>
-                    <div class="mayor">
-                        <img src="img/mayor.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="absolute_container vertical_center">
-            <div id="what_is_it" class="hidden panel">
-                <div class="row">
-                    <div class="text">
-                        <h1>So... what is it?</h1>
-                        <h3>We've come all this way, and I just realized you might not even know <em>what</em> SIGMA is!</h3>
+        <div class="dots"></div>
+        <div class="container">
+            <div id="resources" class="panel">
+                <h2 class="weight-100 underline">Resources</h2>
+                <h5 class="weight-100">We utilized a lot of resources to get understand the intricacies of this project. These included:</h5>
 
-                        <h4 class="left_align">
-                            Super Intricate Gamified Market Analysis (SIGMA) is a gamified stock market simulation in the form of a modern web page which heavily emphasizes social interaction. Users can create a profile using either their email or social media accounts and can invite their friends to compete in various market competitions. Each competition lasts for a certain time frame (specified by the competition creator) and has different goals depending on the competition type. Users can customize an avatar using collectibles which are unlocked by participating in various tournaments and challenges, alongside collecting achievements by completing tasks during their competitions. While using the SIGMA site, users can learn more about the stock market and how they can intelligently invest their money. SIGMA asks about the user’s general knowledge with investing and will tailor the learning experience to accommodate.  SIGMA allows users to learn how to trade on the stock market without fear of losing actual money. The goal of SIGMA is to get users to feel confident in taking what they have learned from the game and applying it to the actual stock market while also keeping users coming back to play because they enjoy the game.
-                        </h4>
-                        <!-- <h4 class="left_align">
-                            To encourage participation and learning, we also have a fully-developed avatar system: Sigmojis! That's what I am! These avatars can be customized
-                            by the user by unlocking various cosmetics earned by participating in competitions, completing challenges, or by leveling up. Every item has a certain
-                            rarity attached to it, so users can work towards increasingly difficult challenges to unlock the most rare cosmetics for their Sigmoji!
-                        </h4> -->
-                        <h4>Scroll to continue...</h4>
-                    </div>
-                    <div class="mayor">
-                        <img src="img/mayor.png" />
-                    </div>
-                </div>
+                <ul class="left_align">
+                    <li><a href="https://www.stockmarketgame.org/">The Stock Market Game</a></li>
+                    <li><a href="https://pro.benzinga.com/feature/screener/?gclid=CjwKCAjwndCKBhAkEiwAgSDKQUPoLDyuMRlnkHIV-kmjjrU959QzhLkMXxRF2nVhQFyNuNj1Q8Af2BoCVcgQAvD_BwE">Benzinga Stock Screener</a></li>
+                    <li><a href="https://ragingbull.com/stocks/stock-tips/">Raging Bull Stock Market Tricks</a></li>
+                    <li><a href="https://www.thebalance.com/stock-market-investor-tips-2637075">Beginner Investing Tips</a></li>
+                    <li><a href="https://www.howthemarketworks.com/">HowTheMarketWorks Stock Market Game</a></li>
+                    <li><a href="https://buildyourstax.com/">Build Your Stax</a></li>
+                </ul>
             </div>
         </div>
-        <div class="absolute_container vertical_center">
-            <div id="resources" class="hidden panel">
-                <div class="row">
-                    <div class="text">
-                        <h1>How we learned about it</h1>
-                        <h3>We utilized a lot of resources to get understand the intricacies of this project. These included:</h3>
-
-                        <ul class="left_align">
-                            <li><a href="https://www.stockmarketgame.org/">The Stock Market Game</a></li>
-                            <li><a href="https://pro.benzinga.com/feature/screener/?gclid=CjwKCAjwndCKBhAkEiwAgSDKQUPoLDyuMRlnkHIV-kmjjrU959QzhLkMXxRF2nVhQFyNuNj1Q8Af2BoCVcgQAvD_BwE">Benzinga Stock Screener</a></li>
-                            <li><a href="https://ragingbull.com/stocks/stock-tips/">Raging Bull Stock Market Tricks</a></li>
-                            <li><a href="https://www.thebalance.com/stock-market-investor-tips-2637075">Beginner Investing Tips</a></li>
-                            <li><a href="https://www.howthemarketworks.com/">HowTheMarketWorks Stock Market Game</a></li>
-                            <li><a href="https://buildyourstax.com/">Build Your Stax</a></li>
-                        </ul>
-                    </div>
-                    <div class="mayor">
-                        <img src="img/mayor.png" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script type="module" src="main.js"></script>
     </body>
-
-
 </html>
